@@ -156,18 +156,11 @@ public class DateUtil {
 		
 	}
 	
-	
-	
-	
-	
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("请输入格式为“yyyy-MM-dd”格式的出生年月日：");
 		String birth=sc.nextLine();
-		
-		
-		 
 		System.err.println("年龄："+getAge(birth));
 		
 	}

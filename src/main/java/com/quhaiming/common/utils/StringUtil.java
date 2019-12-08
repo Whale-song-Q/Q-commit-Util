@@ -17,7 +17,6 @@ public class StringUtil {
 	public static boolean isBlank(String str){
 		
 		if(str==null){
-			
 			return false;
 			
 		}

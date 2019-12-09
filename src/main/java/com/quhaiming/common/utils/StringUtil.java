@@ -168,19 +168,15 @@ public class StringUtil {
 		String name2 = randomChineseString(RandomUtil.random(1, 2));
 		return name1 + name2;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//判断号码是否符合条件
+	public static boolean judgeTelephoneIsOk(String src){
+		String regex="(1[\\d]{10})";
+		return src.matches(regex);
+		//TODO 实现代码
+		}
+
 	public static void main(String[] args) {
-		System.err.println(isPhoneNum("13188031700"));
+		System.err.println(judgeTelephoneIsOk("11234567899"));
 	}
 	
 	

@@ -168,6 +168,7 @@ public class StringUtil {
 		String name2 = randomChineseString(RandomUtil.random(1, 2));
 		return name1 + name2;
 	}
+	
 	//判断号码是否符合条件
 	public static boolean judgeTelephoneIsOk(String src){
 		String regex="(1[\\d]{10})";

@@ -4,73 +4,81 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
-
-/** 
-
-* @author 作者 QHM: 
-
-* @version 创建时间：2019年12月5日 下午1:42:47 
-
-* 类说明 
-
-*/
+/**
+ * @Description:日期工具类   
+ * @author: zhanggm1002
+ * @date:   2019年12月5日 下午1:23:19
+ */
 public class DateUtil {
-
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public static int getAge(Date birthDate){
-		
-		//获得当前日期控件
+	/**
+	 * @Title: format   
+	 * @Description: 时间格式化  
+	 * @param: @param theDate
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	public static String format(Date theDate) {
+		return dateFormat.format(theDate);
+	}
+	
+	/**
+	 * 根据生日计算年龄
+	 * @param birthDate
+	 * @return
+	 */
+	public static int getAge(Date birthDate) {
+		//获得日历控件
 		Calendar calendar = Calendar.getInstance();
-		//获取当前年份
-		int nowYear =calendar.get(calendar.YEAR);
-		//获取当前月份
-		int nowMonth=calendar.get(calendar.MONTH);
-		//获取当前日期
-		int nowDay=calendar.get(calendar.DAY_OF_MONTH);
-		//设置生日
+		//获得年、月、日
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH);
+		int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
+		//设置日历控件为生日的时间
 		calendar.setTime(birthDate);
-		int birthYear =calendar.get(calendar.YEAR);
-		int birthMonth=calendar.get(calendar.MONTH);
-		int birthDay=calendar.get(calendar.DAY_OF_MONTH);
-		//年龄
-		int age =nowYear-birthYear;
-		//如果生日月份大于当前月份时，年龄-1
-		if(birthMonth>nowMonth){ 
-			age--;
-			
-		}
-		if(birthMonth==nowMonth && nowDay<birthDay){
+		int birthYear = calendar.get(Calendar.YEAR);
+		int birthMonth = calendar.get(Calendar.MONTH);
+		int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
+		//计算年龄
+		int age = nowYear-birthYear;
+		//如果生日的月份大于当前月份时，年龄-1
+		if(birthMonth>nowMonth) {
 			age--;
 		}
-		
-		
+		//如果月份相等，判断日期
+		if(birthMonth==nowMonth && nowDay<birthDay) {
+			age--;
+		}
 		return age;
 	}
 	/**
 	 * 根据出生日期计算年龄
-	 * "2019-11-08"
-	 * 
-	 * */
-	public static int getAge(String birthDateStr){
-		
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date birthDate=null;
+	 * @param birthDateStr "2019-11-08"
+	 * @return
+	 */
+	public static int getAge(String birthDateStr) {
+		Date birthDate = null;
 		try {
-			//将字符串转成日期格式
-			birthDate = simpleDateFormat.parse(birthDateStr);
+			//解析日期字符串为Date对象
+			birthDate = dateFormat.parse(birthDateStr);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//调用静态方法推算年龄
+		//调用日期计算方法
 		return getAge(birthDate);
 	}
-	
-	//获取开始日期和结束日期之间有多少天  
+	/**
+	 * @Title: getDayNum   
+	 * @Description: 获取开始日期和结束日期之间有多少天   
+	 * @param: @param startDate
+	 * @param: @param endDate
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
 	public static int getDayNum(Date date1,Date date2) {
 		//一天有多少毫秒
 		Long dayTime = 1000*60*60*24L;
@@ -83,19 +91,40 @@ public class DateUtil {
 //		System.out.println(dayNum);
 		return dayNum.intValue()+1;
 	}
-	//计算指定日期距离今天，过去了多少天或还有多少天
+	/**
+	 * @Title: getDayNum   
+	 * @Description: 计算指定日期距离今天，过去了多少天或还有多少天   
+	 * @param: @param date
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
 	public static int getDayNum(Date date) {
 		Date date2 = new Date();
 		return getDayNum(date,date2);
 	}
-	//验证指定日期是否为今天(日期形式的实参)
+	/**
+	 * @Title: isToday   
+	 * @Description: 验证指定日期是否为今天   
+	 * @param: @param theDate
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static boolean isToday(Date theDate) {
 		Date nowDate = new Date();
 		String nowDateStr = dateFormat.format(nowDate);
 		String theDateStr = dateFormat.format(theDate);
 		return nowDateStr.equals(theDateStr);
 	}
-	//验证指定日期是否为今天 （字符串形式的实参）
+	/**
+	 * @Title: isToday   
+	 * @Description: 验证指定日期是否为今天    
+	 * @param: @param theDateStr "2019-11-30"
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static boolean isToday(String theDateStr) {
 		try {
 			Date theDate = dateFormat.parse(theDateStr);
@@ -105,17 +134,46 @@ public class DateUtil {
 		}
 		return false;
 	}
-	//判断指定日期是否在本周
+	/**
+	 * @Title: isInWeek   
+	 * @Description: 判断指定日期是否在本周   
+	 * @param: @param theDate
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static boolean isInWeek(Date theDate) {
+		Date nowDate = new Date();
 		Calendar c = Calendar.getInstance();
-		int nowYear = c.get(Calendar.YEAR);
-		int nowWeek = c.get(Calendar.WEEK_OF_YEAR);
-		c.setTime(theDate);
-		int theYear = c.get(Calendar.YEAR);
-		int theWeek = c.get(Calendar.WEEK_OF_YEAR);
-		return nowYear==theYear && nowWeek==theWeek;
+		c.setTime(nowDate);
+		//本周的第几天
+		int dayofweek = c.get(Calendar.DAY_OF_WEEK);
+		//设置本周第一天的时间
+		c.add(Calendar.DAY_OF_YEAR, 1-dayofweek);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		Date firstDate = c.getTime();
+		System.out.println(dateTimeFormat.format(firstDate));
+		//设置本周最后一天的时间
+		c.add(Calendar.DAY_OF_YEAR, 6);
+		c.set(Calendar.HOUR_OF_DAY, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+		Date lastDate = c.getTime();
+		System.out.println(dateTimeFormat.format(theDate));
+		System.out.println(dateTimeFormat.format(lastDate));
+		return compareTime(theDate,firstDate)>=0 && compareTime(theDate,lastDate)<=0;
 	}
-	//获取指定月份的第一天
+	/**
+	 * @Title: getFirstDateInMonth   
+	 * @Description: 获取指定日期月份的第一天 
+	 * 2019-12-04 12:22:45  -> 2019-12-01 00:00:00
+	 * @param: @param theDate
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static Date getFirstDateInMonth(Date theDate) {
 		/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-01 00:00:00");
 		String dateStr = format.format(theDate);
@@ -132,7 +190,15 @@ public class DateUtil {
 		c.set(Calendar.SECOND, 0);
 		return c.getTime();
 	}
-	//获取指定日期的最后一天
+	/**
+	 * @Title: getLastDateInMonth   
+	 * @Description: 获得指定日期的最后一天    
+	 * 2019-12-04 12:22:45  -> 2019-12-31 23:59:59
+	 * @param: @param theDate
+	 * @param: @return      
+	 * @return: Date      
+	 * @throws
+	 */
 	public static Date getLastDateInMonth(Date theDate) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(theDate);
@@ -141,8 +207,16 @@ public class DateUtil {
 		c.setTime(firstDateInMonth);
 		c.add(Calendar.SECOND, -1);
 		return c.getTime();
-	}	
-	//描述这个方法的作用
+	}
+	/**
+	 * @Title: compareTime   
+	 * @Description: TODO(描述这个方法的作用)   
+	 * @param: @param date1
+	 * @param: @param date2
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
 	public static int compareTime(Date date1,Date date2) {
 		long time1 = date1.getTime();
 		long time2 = date2.getTime();
@@ -156,18 +230,10 @@ public class DateUtil {
 		
 	}
 	
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("请输入格式为“yyyy-MM-dd”格式的出生年月日：");
-		String birth=sc.nextLine();
-		System.err.println("年龄："+getAge(birth));
-		
+	public static void main(String[] args) throws ParseException {
+		Date firstDateInMonth = getLastDateInMonth(new Date());
+		System.out.println();
+		Date theDate = dateFormat.parse("2019-12-20");
+		System.out.println(isInWeek(theDate));
 	}
-	
-	
-	
-	
-	
-	
 }

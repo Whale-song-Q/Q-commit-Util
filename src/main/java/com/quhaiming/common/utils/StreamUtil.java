@@ -6,19 +6,21 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-
-/** 
-
-* @author 作者 QHM: 
-
-* @version 创建时间：2019年12月6日 下午3:04:04 
-
-* 类说明 
-
-*/
+/**
+ * 流工具类
+ * @Description:TODO(描述这个类的作用)   
+ * @author: zhanggm1002
+ * @date:   2019年12月5日 下午1:31:39
+ */
 public class StreamUtil {
-
-	//关闭多个流方法
+	/**
+	 * 关闭流的方法
+	 * @Title: closeAll   
+	 * @Description: 数组参数，可以批量删除多个打开的流   
+	 * @param: @param autoCloseables      
+	 * @return: void      
+	 * @throws
+	 */
 	public static void closeAll(AutoCloseable... autoCloseables ) {
 		if(autoCloseables!=null) {
 			for(AutoCloseable autoCloseable:autoCloseables) {
@@ -30,6 +32,7 @@ public class StreamUtil {
 			}
 		}
 	}
+	
 	/**
 	 * @Title: readTextFile   
 	 * @Description: 以流的方式，读取文本文件内容   

@@ -4,7 +4,7 @@ import java.security.MessageDigest;
   
 /**
  * @Description:采用MD5加密解密   
- * @author: quhaiming1002
+ * @author: zhanggm1002
  * @date:   2019年12月13日 上午8:46:51
  */
 public class Md5Util {

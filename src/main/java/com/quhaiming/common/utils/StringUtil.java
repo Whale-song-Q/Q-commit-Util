@@ -3,51 +3,70 @@ package com.quhaiming.common.utils;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-/** 
-
-* @author 作者 QHM: 
-
-* @version 创建时间：2019年12月5日 下午7:41:13 
-
-* 类说明 
-
-*/
 public class StringUtil {
-
-	public static boolean isBlank(String str){
-		
-		if(str==null){
-			return false;
-			
+	/**
+	 * @Title: isBlank   
+	 * @Description: 判断字符串是否为空  
+	 * @param: @param str
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	public static boolean isBlank(String str) {
+		if(str==null) {
+			return true;
 		}
-		str=str.trim();
-		if(str.length()==0){
-			return false;
-			
+		//去空格
+		str = str.trim();
+		//
+		if(str.length()==0) {
+			return true;
 		}
-		return true;
-		
-		
+		return false;
 	}
-//判断字符不为空
-	public static boolean isNotBlank(String str){
-		
+	/**
+	 * @Title: isNotBlank   
+	 * @Description: 字符串内容不为空，返回true   
+	 * @param: @param str
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	public static boolean isNotBlank(String str) {
 		return !isBlank(str);
-		
 	}
-	//判断字符窜是否为手机号
-	public static boolean isPhoneNum(String str){
-		String regex="1[3578]\\d{9}";
+	
+	/**
+	 * @Title: isPhoneNum   
+	 * @Description: 判断字符串是否为手机号   
+	 * @param: @param str
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	public static boolean isPhoneNum(String str) {
+		String regex = "1[3578]\\d{9}";
 		return str.matches(regex);
-		
-		
-	} 
-//验证是否为邮箱   
+	}
+	/**
+	 * @Title: isEmail   
+	 * @Description: 验证是否为邮箱   
+	 * @param: @param str zhanggm1002@qq.com
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static boolean isEmail(String str) {
 		String regex = "[A-Za-z0-9]+@[A-Za-z0-9]+.(com|cn|com.cn|net)";
 		return str.matches(regex);
 	}
-//(描述这个方法的作用)   
+	/**
+	 * @Title: isLetter   
+	 * @Description: TODO(描述这个方法的作用)   
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
 	public static boolean isLetter(String str) {
 		if(isNotBlank(str)) {
 			str = str.toLowerCase();
@@ -56,7 +75,13 @@ public class StringUtil {
 		}
 		return false;
 	}
-//获取随机字符（a-z）   
+	/**
+	 * @Title: getRandomAzChar   
+	 * @Description: 获取随机字符（a-z）   
+	 * @param: @return      
+	 * @return: char      
+	 * @throws
+	 */
 	public static char getRandomAzChar() {
 		//随机类
 		Random random = new Random();
@@ -66,7 +91,14 @@ public class StringUtil {
 		char newChar = (char)(startChar+random.nextInt(26));
 		return newChar;
 	}
-// 获取随机字符串 
+	/**
+	 * @Title: getRandomLetter   
+	 * @Description: 获取随机字符串 
+	 * @param: @param num
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
 	public static String getRandomLetter(int num) {
 		//保存生成胡字符
 		StringBuffer sb = new StringBuffer();
@@ -78,7 +110,13 @@ public class StringUtil {
 		return sb.toString();
 	}
 	
-// 获取随机数字字符 
+	/**
+	 * @Title: getRandomNumberChar   
+	 * @Description: 获取随机数字字符 
+	 * @param: @return      
+	 * @return: char      
+	 * @throws
+	 */
 	public static char getRandomNumberChar() {
 		//随机类
 		Random random = new Random();
@@ -88,7 +126,14 @@ public class StringUtil {
 		char newChar = (char)(startChar+random.nextInt(10));
 		return newChar;
 	}
-// 获得随机字符串（a-z0-9）   
+	/**
+	 * @Title: getRandomLetterAndNumberStr   
+	 * @Description: 获得随机字符串（a-z0-9）   
+	 * @param: @param num
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
 	public static String getRandomLetterAndNumberStr(int num) {
 		StringBuffer sb = new StringBuffer();
 		Random random = new Random();
@@ -102,7 +147,13 @@ public class StringUtil {
 		return sb.toString();
 	}
 	
-//返回一个中文文字//GB2312中文简体  
+	/**
+	 * @Title: randomChineseString   
+	 * @Description: 返回一个中文文字//GB2312中文简体  
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
 	public static String randomChineseString() {
 		String str = null;
 		int highPos, lowPos;
@@ -120,7 +171,14 @@ public class StringUtil {
 		}
 		return str;
 	}
-	// 返回参数length个中文汉字字符串，字符集必须在GB2312(相当于中文简体)范围内  
+	/**
+	 * @Title: randomChineseString   
+	 * @Description: 返回参数length个中文汉字字符串，字符集必须在GB2312(相当于中文简体)范围内   
+	 * @param: @param length
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
 	public static String randomChineseString(int length) {
 		String str = "";
 		for (int i = 0; i < length; i++) {
@@ -129,8 +187,13 @@ public class StringUtil {
 
 		return str;
 	}
-	// 返回中文姓名，必须以真实姓开头
-
+	/**
+	 * @Title: randomChineseName   
+	 * @Description: 返回中文姓名，必须以真实姓开头
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
 	public static String randomChineseName() {
 		String[] surname = { "赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦",
 				"尤", "许", "何", "吕", "施", "张", "孔", "曹", "严", "华", "金", "魏", "陶", "姜", "戚", "谢", "邹", "喻", "柏", "水", "窦",
@@ -169,18 +232,10 @@ public class StringUtil {
 		return name1 + name2;
 	}
 	
-	//判断号码是否符合条件
-	public static boolean judgeTelephoneIsOk(String src){
-		String regex="(1[\\d]{10})";
-		return src.matches(regex);
-		//TODO 实现代码
-		}
-
 	public static void main(String[] args) {
-		System.err.println(judgeTelephoneIsOk("11234567899"));
+		for (int i = 0; i < 10; i++) {
+			System.out.println(randomChineseName());
+		}
 	}
-	
-	
-	
 	
 }

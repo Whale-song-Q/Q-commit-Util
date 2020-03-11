@@ -1,11 +1,18 @@
 package com.quhaiming.common.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.util.Date;
+
+import javax.sound.midi.SysexMessage;
 /**
  * 流工具类
  * @Description:TODO(描述这个类的作用)   
@@ -94,8 +101,43 @@ public class StreamUtil {
 		writeTextFile(content,new File(fileFullName), append);
 	}
 
-	public static void main(String[] args) {
-		String readTextFile = readTextFile("C:\\Users\\Administrator\\Desktop\\pom.xml");
-		writeTextFile(readTextFile, "C:\\Users\\Administrator\\Desktop\\aa\\aa.xml",false);
+	public static void main(String[] args) throws ParseException  {
+		/*String readTextFile = readTextFile("C:\\Users\\Administrator\\Desktop\\pom.xml");
+		writeTextFile(readTextFile, "C:\\Users\\Administrator\\Desktop\\aa\\aa.xml",false);*/
+		
+		//关闭流方法
+/*		BufferedReader br = new BufferedReader(new FileReader(new File("C:/Users/72348/Desktop/aaa.txt")));
+		System.err.println("br信息"+br);
+		closeAll(br);
+		System.err.println("关闭字符输入流"+br);*/
+		
+		//内部调用关闭流方法
+/*		BufferedReader br = null;
+		try {
+			
+					br=new BufferedReader(new FileReader(new File("C:/Users/72348/Desktop/aaa.txt")));
+					System.err.println("br:"+br);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			closeAll(br);
+			System.err.println("关闭流成功");
+		}*/
+		
+		DateUtil dateUtil = new DateUtil();
+		String data1="2019-05-18 11:37:22";
+		Date date = dateUtil.dateFormat.parse(data1);
+		
+		
+		String  data2="2019-02-28 23:59:59";
+		 Date parse = dateUtil.dateFormat.parse(data1);
+		 
+		
+		String sql = "select * from t_order where create_time>='{"+dateUtil.getFirstDateInMonth(date)+"}' and create_time<='{"+dateUtil.getLastDateInMonth(parse)+"}' ";
+		
+		System.err.println("拼凑后的sql语句"+sql);
+		
 	}
 }

@@ -231,9 +231,32 @@ public class DateUtil {
 	}
 	
 	public static void main(String[] args) throws ParseException {
-		Date firstDateInMonth = getLastDateInMonth(new Date());
+/*		Date firstDateInMonth = getLastDateInMonth(new Date());
 		System.out.println();
 		Date theDate = dateFormat.parse("2019-12-20");
-		System.out.println(isInWeek(theDate));
+		System.out.println(isInWeek(theDate));*/
+		
+		
+		//返回指定日期的第一天
+/*		String data1="2019-05-18 11:37:22";
+		Date date = dateFormat.parse(data1);
+		 
+		 System.err.println("本月第一天:"+getFirstDateInMonth(date));*/
+		 
+		 //返回指定日期的最后一天
+/*		 String  data1="2019-02-28 23:59:59";
+		 Date parse = dateFormat.parse(data1);
+		 System.err.println("本月最后一天："+getLastDateInMonth(parse));*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

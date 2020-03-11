@@ -1,18 +1,19 @@
 package com.quhaiming.common.utils;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Random;
 
 public class StringUtil {
 	/**
-	 * @Title: isBlank   
+	 * @Title: Blank   
 	 * @Description: 判断字符串是否为空  
 	 * @param: @param str
 	 * @param: @return      
 	 * @return: boolean      
 	 * @throws
 	 */
-	public static boolean isBlank(String str) {
+	public static boolean Blank(String str) {
 		if(str==null) {
 			return true;
 		}
@@ -25,50 +26,90 @@ public class StringUtil {
 		return false;
 	}
 	/**
-	 * @Title: isNotBlank   
+	 * @Title: NotBlank   
 	 * @Description: 字符串内容不为空，返回true   
 	 * @param: @param str
 	 * @param: @return      
 	 * @return: boolean      
 	 * @throws
 	 */
-	public static boolean isNotBlank(String str) {
-		return !isBlank(str);
+	public static boolean NotBlank(String str) {
+		return !Blank(str);
 	}
 	
 	/**
-	 * @Title: isPhoneNum   
+	 * @Title: PhoneNum   
 	 * @Description: 判断字符串是否为手机号   
 	 * @param: @param str
 	 * @param: @return      
 	 * @return: boolean      
 	 * @throws
 	 */
-	public static boolean isPhoneNum(String str) {
+	public static boolean PhoneNum(String str) {
 		String regex = "1[3578]\\d{9}";
 		return str.matches(regex);
 	}
+	
 	/**
-	 * @Title: isEmail   
+	 * 判断是否是数字
+	 * @param src
+	 * @return
+	 */
+	public static boolean isNumber(String src) {
+		//String regix="[0-9]{1,}(\\.?|[0-9]*)";
+		String regix="[0-9]{1,}\\.?[0-9]*";
+		return src.matches(regix);
+		
+		
+	}
+	/**
+	 * 测试工具包中hasText()，该方法是过滤String参数空格后判断是否有值，
+	 * 如果你有该功能方法，但不是这个方法名不扣分。如果没有该方法，必须现在编写该方法
+	 * @param src
+	 * @return
+	 */
+	public static boolean hasText(String src) {
+		String string = src.replaceAll("\\s", "");
+		return (!"".equals(string));
+	}
+	/**
+	* 方法：生成唯一标签名，处理步骤：
+	* 1、全部变成小写；
+	* 2、清空两边的空格，把中间所有的空格替换成“-”；
+	* 3、使用URLEncoder.encode()编码
+	* 最后返回处理的结果。
+	* 举例“Spring MVC”处理后为“spring-mvc”，“Spring Mvc”处理后也为“spring-mvc”
+	*/
+	public static String toUniqueTerm(String term) throws UnsupportedEncodingException{
+	//TODO 实现代码
+		term=term.toLowerCase();	// 1、全部变成小写；
+		term=term.trim();//清空两边的空格，
+		term = term.replaceAll(" ", "-");//把中间所有的空格替换成“-”；
+		return URLEncoder.encode(term,"UTF-8");//、使用URLEncoder.encode()编码
+		
+	}
+	
+	/**
+	 * @Title: Email   
 	 * @Description: 验证是否为邮箱   
 	 * @param: @param str quhaiming1002@qq.com
 	 * @param: @return      
 	 * @return: boolean      
 	 * @throws
 	 */
-	public static boolean isEmail(String str) {
+	public static boolean Email(String str) {
 		String regex = "[A-Za-z0-9]+@[A-Za-z0-9]+.(com|cn|com.cn|net)";
 		return str.matches(regex);
 	}
 	/**
-	 * @Title: isLetter   
+	 * @Title: Letter   
 	 * @Description: TODO(描述这个方法的作用)   
 	 * @param: @return      
 	 * @return: boolean      
 	 * @throws
 	 */
-	public static boolean isLetter(String str) {
-		if(isNotBlank(str)) {
+	public static boolean Letter(String str) {
+		if(NotBlank(str)) {
 			str = str.toLowerCase();
 			String regex = "[a-z]+";
 			return str.matches(regex);
@@ -237,7 +278,7 @@ public class StringUtil {
 	 * @param url
 	 * @return
 	 */
-	public static boolean isHttpUrl(String str){
+	public static boolean HttpUrl(String str){
 		 //转换为小写
         str = str.toLowerCase();
         String regex = "^((https|http|ftp|rtsp|mms)?://)"  //https、http、ftp、rtsp、mms
@@ -250,13 +291,23 @@ public class StringUtil {
                  + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\\." // 二级域名  
                 + "[a-z]{2,6})" // first level domain- .com or .museum  
                 + "(:[0-9]{1,5})?" // 端口号最大为65535,5位数
-                + "((/?)|" // a slash isn't required if there is no file name  
+                + "((/?)|" // a slash n't required if there  no file name  
                 + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";  
+        		/*"^(http|https|ftp)\\://([a-zA-Z0-9\\.\\-]+(\\:[a-zA-Z0-9\\.&amp;%\\$\\-]+)*@)?((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,4})(\\:[0-9]+)?(/[^/][a-zA-Z0-9\\.\\,\\?\\'\\\\/\\+&amp;%\\$#\\=~_\\-@]*)*$";*/
         return  str.matches(regex);	
 	}
+	public static boolean HttpFirstUrl(String str){
+		 //转换为小写
+       str = str.toLowerCase();
+       str = str.substring(0, 4);
+       String regex = "^((http))";  //https、http、ftp、rtsp、mms  
+       return  str.matches(regex);	
+	}
+	
+	
 	
 	public static void main(String[] args) {
-		boolean httpUrl = isHttpUrl("http://172.16.10.111/exam/exam/home.do");
+		boolean httpUrl = HttpFirstUrl("http://");
 		System.out.println(httpUrl);
 	}
 	

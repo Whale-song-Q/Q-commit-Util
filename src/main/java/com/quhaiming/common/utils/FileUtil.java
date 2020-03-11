@@ -84,25 +84,29 @@ public class FileUtil {
 	 * @return: List<String>      
 	 * @throws
 	 */
-	public static List<String> readTextFileOfList(String pathname) {
-		BufferedReader br = null;
-		List<String> strList = new ArrayList<>();
+	 	public static List<String> readTextFileOfList(String filePath) {
+		BufferedReader br=null;
+		List<String> strList=new ArrayList<String>();
+		String str=null;
 		try {
-			br = new BufferedReader(new FileReader(new File(pathname)));
-			do {
-				strList.add(br.readLine());
-			}while(br.read()!=-1);
+			br=new BufferedReader(new FileReader(new File(filePath)));
+			while((str=br.readLine())!=null) {
+				strList.add(str);
+			}
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}finally {
+		}finally{
 			StreamUtil.closeAll(br);
 		}
 		return strList;
 	}
+
 	/**
 	 * @Title: deleteFile   
 	 * @Description: 递归删除文件   
@@ -152,8 +156,45 @@ public class FileUtil {
 		return getFileSize(new File(fileFullName));
 	}
 	
+	// 
+	public static List<String> readFileUrl(String file){
+		File file2 = new File(file);
+		return readFileUrl(file2);
+	}
+	
+	//读取文件夹中的文件路径
+	public static List<String> readFileUrl(File file) {
+		List<String> list = new ArrayList<String>();
+		if(file.isDirectory()) {
+			File[] listFiles = file.listFiles();
+			//循环获取文件路径
+			for (File file2 : listFiles) {
+				//使用文件路径读取文件
+				String readTextFileByLine = readTextFileByLine(file2.toString());
+				//截取文件名
+				String[] split = file2.toString().split("\\\\");
+				//添加到集合中
+				list.add(split[2]+"@@"+readTextFileByLine);
+			}
+		}
+		return list;
+		
+	}
+
+	
+	
+	
+	
 	public static void main(String[] args) {
-		System.out.println(getSystemTempDirectory());
+		/*System.out.println(getSystemTempDirectory());*/
+		
+/*		String extName = getExtName("aaa.jsp");
+		
+		System.err.println("截取拓展名："+extName);*/
+		
+		
+		
+		
 	}
 	
 }
